@@ -1,3 +1,5 @@
+phpmyadmin : https://www.phpmyadmin.co/db_structure.php?server=1&db=sql7615556
+
 host : sql7.freemysqlhosting.net
 DB name : sql7615556
 login : sql7615556
