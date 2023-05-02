@@ -1,0 +1,4 @@
+host : sql7.freemysqlhosting.net
+DB name : sql7615556
+login : sql7615556
+password : wPHQyG7cx7
