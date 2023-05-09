@@ -1,8 +1,8 @@
 public class Application {
-    public static String adresse = "sql7.freemysqlhosting.net";
-    public static String bd = "sql7615556";
-    public static String login = "sql7615556";
-    public static String password = "wPHQyG7cx7";
+    public static String adresse = "localhost";
+    public static String bd = "photosfamille";
+    public static String login = "root";
+    public static String password = "";
 
     public static void main(String[] args) {
         int connexion = BD.ouvrirConnexion(adresse, bd, login,password);
