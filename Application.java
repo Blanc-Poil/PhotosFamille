@@ -87,11 +87,13 @@ public class Application
             Ecran.afficherln("Vous allez maintenant pouvoir indiquer qui se trouvait sur la photo en précisant leurs numéros dans la liste. Pour arrêter d'indiquer des personnes, tapez 0.");
             affichageSimpleInd(bdd.getSimpleInds()); // mettre le tableau d'individu
             idIndividu = Clavier.saisirInt();
-            if (bdd.addApparition(IdPhoto, idIndividu)){
-                Ecran.afficherln("L'individu a bien été ajouté");
-            }
-            else{
-                Ecran.afficherln("L'individu n'a pas été ajouté");
+            if (idIndividu !=0){
+                if (bdd.addApparition(IdPhoto, idIndividu)){
+                    Ecran.afficherln("L'individu a bien été ajouté");
+                }
+                else{
+                    Ecran.afficherln("L'individu n'a pas été ajouté");
+                }
             }
            }while (idIndividu != 0);
            choixFonctionnalite = 0;
