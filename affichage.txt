@@ -1,0 +1,47 @@
+/*##### menu principale #####*/
+
+Bienvenue dans notre système de gestion de photos de famille !
+Que souhaitez-vous faire :
+
+    1 - Insérer une photo
+    2 - Trouver les photos d'une personne
+    3 - Reconstituer toutes les photos d'une famille
+
+Votre choix : 
+
+/*##### Insertion de photo #####*/
+
+À quel album appartient cette photo parmis la liste suivante :
+
+    IDAlbum - NomAlbum
+
+Votre choix : 
+
+
+-- suite
+
+
+À quelle page apparait cette photo : 
+
+
+-- suite
+
+
+À quel événement cette photo a été prise parmis la liste suivante :
+
+    IDEvenement - LibelleEvenement - DateEvenement
+
+Votre choix : 
+
+
+-- suite
+
+
+Vous allez maintenant pouvoir indiquer qui se trouvait sur la photo en précisant leurs numéros dans la liste.
+Pour arrêter d'indiquer des personnes, tapez 0.
+
+    IDInd - NomInd - PrenomInd
+
+Votre choix : 
+
+/*##### Trouver une photo #####*/
