@@ -4,7 +4,6 @@ public class Application {
         DBmanager bdd = new DBmanager(Access.adresse, Access.bd, Access.login, Access.password);
         bdd.addPhoto(1, 25, 1);
 
-    public static void main(String[] args) {
         int connexion = BD.ouvrirConnexion(Access.adresse, Access.bd, Access.login,Access.password);
         Ecran.afficherln("Connexion : " + connexion);
         int choixFonctionnalite = 0;
@@ -24,11 +23,20 @@ public class Application {
                     choixFonctionnalite = Clavier.saisirInt();
                 }while (choixFonctionnalite < -1 || choixFonctionnalite > 3);
 
-
-
-
                 break;
             case 1:
+                do{
+                    Ecran.afficherln("Insérer une photo :");
+                    Ecran.afficherln("Veuillez saisir l'id de l'album dans laquelle vous voulez insérer la photo");
+                    int idAlbum = Clavier.saisirInt();
+                    Ecran.afficherln("Veuillez saisir le numéro de la page dans laquelle vous voulez insérer la photo");
+                    int page = Clavier.saisirInt();
+                    Ecran.afficherln("Veuillez saisir l'id de l'évènement dans laquelle vous voulez insérer la photo");
+                    int idEvenement = Clavier.saisirInt();
+                    
+
+                } while (bdd.addPhoto(idAlbum, page, idEvenement)==false;)
+
 
                 break;
             case 2:
