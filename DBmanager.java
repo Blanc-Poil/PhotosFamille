@@ -62,7 +62,7 @@ public class DBmanager
         nbrInds = BD.attributInt(query, "nbr");
         //completed the individus array
         SimpleInd[] inds = new SimpleInd[nbrInds];
-        query = BD.executerSelect(this.database, "SELECT (IDInd, NomInd, PrenomInd) FROM INDIVIDU");
+        query = BD.executerSelect(this.database, "SELECT IDInd, NomInd, PrenomInd FROM INDIVIDU");
         int i = 0;
         while (BD.suivant(query)) {
             inds[i] = new SimpleInd();
@@ -76,15 +76,12 @@ public class DBmanager
 
     public int addPhoto(int album, int page, int event)
     {
-        String sql = "INSERT INTO PHOTO (IDAlbum, NumPage, IDEvenement) VALUES (%d, %d, %d); SELECT LAST_INSERT_ID() AS id";
+        String sql = "INSERT INTO PHOTO (IDAlbum, NumPage, IDEvenement) VALUES (%d, %d, %d)";
         int result;
-        int photoID;
         sql = String.format(sql, album, page, event);
-        result = BD.executerSelect(this.database, sql);
-        if (result == -1) return result;
-        BD.suivant(result);
-        photoID = BD.attributInt(result, "id");
-        return photoID;
+        System.out.println(sql);
+        result = BD.executerUpdate(this.database, sql);
+        return result;
     }
 
     public boolean addApparition(int photoID, int indID)
