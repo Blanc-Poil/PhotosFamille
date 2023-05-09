@@ -1,16 +1,20 @@
 import Struct.*;
 public class Application
 {
+    public static final String YELLOW = "\u001B[33m";
+    public static final String RESET = "\u001B[0m";
+    public static final String BG_YELLOW="\u001B[43m";
+    public static final String BG_GREEN="\u001B[42m";
 
     static int menuPrincipale(int choixFonctionnalite){
-        Ecran.afficherln("Bienvenue dans l'application de gestion de photos de famille");
-        Ecran.afficherln("Veuillez choisir une fonctionnalité :");
-        Ecran.afficherln("1. Insérer une photo d'une personne");
-        Ecran.afficherln("2. Trouver les photos d'une personne");
-        Ecran.afficherln("3. Reconstituer toutes les photos d'une famille");
-        Ecran.afficherln("Tapez -1 pour quitter l'application");
+        Ecran.afficherln(YELLOW+"Bienvenue dans l'application de gestion de photos de famille"+RESET);
+        Ecran.afficherln(YELLOW+"Veuillez choisir une fonctionnalité :"+RESET);
+        Ecran.afficherln(YELLOW+"1. Insérer une photo d'une personne"+RESET);
+        Ecran.afficherln(YELLOW+"2. Trouver les photos d'une personne"+RESET);
+        Ecran.afficherln(YELLOW+"3. Reconstituer toutes les photos d'une famille"+RESET);
+        Ecran.afficherln(YELLOW+"Tapez -1 pour quitter l'application"+RESET);
         do {
-            Ecran.afficherln("Veuillez saisir un nombre entre 1 et 3");
+            Ecran.afficherln(YELLOW+"Veuillez saisir un nombre entre 1 et 3");
             choixFonctionnalite = Clavier.saisirInt();
         }while (choixFonctionnalite < -1 || choixFonctionnalite > 3);
         return choixFonctionnalite;
@@ -18,9 +22,9 @@ public class Application
 
     static void affihageAlbum(Album [] album){
         Ecran.afficherln("Voici la liste des albums :");
-        Ecran.afficherln("Id Album | Nom Album");
+        Ecran.afficherln(BG_GREEN+"Id Album"+RESET+" | " +BG_YELLOW+" Nom Album"+RESET);
         for (int i = 0; i < album.length; i++) {
-            Ecran.afficherln(album[i].IDAlbum + " | " + album[i].NomAlbum);
+            Ecran.afficherln(BG_GREEN+album[i].IDAlbum + RESET+ " | "+BG_YELLOW + album[i].NomAlbum+RESET);
         }
     }
 
