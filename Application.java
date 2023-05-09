@@ -1,9 +1,4 @@
 public class Application {
-    public static String adresse = "localhost";
-    public static String bd = "photosfamille";
-    public static String login = "root";
-    public static String password = "";
-
     public static void main(String[] args) {
         int connexion = BD.ouvrirConnexion(adresse, bd, login,password);
         // cr´eation de la requ^ete
