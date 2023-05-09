@@ -9,15 +9,6 @@ public class DBmanager
         this.database = BD.ouvrirConnexion(host, dbname, login, password);
     }
 
-    public boolean addPhoto(int album, int page, int event)
-    {
-        String sql = "INSERT INTO PHOTO (IDAlbum, NumPage, IDEvenement) VALUES (%d, %d, %d)";
-        int result;
-        sql = String.format(sql, album, page, event);
-        result = BD.executerUpdate(this.database, sql);
-        return (result != -1);
-    }
-
     public Album[] getAlbums()
     {
         int query;
@@ -59,6 +50,50 @@ public class DBmanager
             i++;
         }
         return events;
+    }
+
+    public SimpleInd[] getSimpleInds()
+    {
+        int query;
+        int nbrInds;
+        //count nbr of individus registered
+        query = BD.executerSelect(this.database, "SELECT COUNT(*) AS nbr FROM INDIVIDU");
+        BD.suivant(query);
+        nbrInds = BD.attributInt(query, "nbr");
+        //completed the individus array
+        SimpleInd[] inds = new SimpleInd[nbrInds];
+        query = BD.executerSelect(this.database, "SELECT (IDInd, NomInd, PrenomInd) FROM INDIVIDU");
+        int i = 0;
+        while (BD.suivant(query)) {
+            inds[i] = new SimpleInd();
+            inds[i].IDInd = BD.attributInt(query, "IDInd");
+            inds[i].NomInd = BD.attributString(query, "NomInd");
+            inds[i].PrenomInd = BD.attributString(query, "PrenomInd");
+            i++;
+        }
+        return inds;
+    }
+
+    public int addPhoto(int album, int page, int event)
+    {
+        String sql = "INSERT INTO PHOTO (IDAlbum, NumPage, IDEvenement) VALUES (%d, %d, %d); SELECT LAST_INSERT_ID() AS id";
+        int result;
+        int photoID;
+        sql = String.format(sql, album, page, event);
+        result = BD.executerSelect(this.database, sql);
+        if (result == -1) return result;
+        BD.suivant(result);
+        photoID = BD.attributInt(result, "id");
+        return photoID;
+    }
+
+    public boolean addApparition(int photoID, int indID)
+    {
+        int query;
+        String sql = "INSERT INTO APPARAIT (IDPhoto, IDInd) VALUES (%d, %d)";
+        sql = String.format(sql, photoID, indID);
+        query = BD.executerUpdate(this.database, sql);
+        return (query != -1);
     }
 
     public static String dateString(long timestamp)
