@@ -1,11 +1,6 @@
 public class Access {
-    public static String adresse = "localhost";
-    public static String bd = "Photo_de_Famille";
-    public static String login = "root";
-    public static String password = "root";
-
-    public static void main (String [] args){
-
-
-    }
+    public static final String adresse = "sql7.freemysqlhosting.net";
+    public static final String bd = "sql7617142";
+    public static final String login = "sql7617142";
+    public static final String password = "sgXmIkagsk";
 }
