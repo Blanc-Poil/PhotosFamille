@@ -1,19 +1,43 @@
 public class Application {
+    public static void main(String[] args)
+    {
+        DBmanager bdd = new DBmanager(Access.adresse, Access.bd, Access.login, Access.password);
+        bdd.addPhoto(1, 25, 1);
+
     public static void main(String[] args) {
-        int connexion = BD.ouvrirConnexion(adresse, bd, login,password);
-        // cr´eation de la requ^ete
-        String sql = "SELECT PATIENT.Nom, MEDECIN.Nom, NumCons FROM CONSULTATION, MEDECIN, PATIENT WHERE"
-        +" CONSULTATION.Medecin = MEDECIN.Matricule AND CONSULTATION.Patient = NumSecu";
-        // envoi de la requ^ete
-        int res = BD.executerSelect(connexion, sql);
-        // parcours du r´esultat (ligne par ligne)
-        while (BD.suivant(res)) {
-            int numCons = BD.attributInt(res,"NumCons");
-            String nomMedecin = BD.attributString(res,"MEDECIN.Nom");
-            String nomPatient = BD.attributString(res,"PATIENT.Nom");
-            System.out.println(""+numCons+ ": "+ nomPatient +" ("+nomMedecin+")");
+        int connexion = BD.ouvrirConnexion(Access.adresse, Access.bd, Access.login,Access.password);
+
+        int choixFonctionnalite = 0;
+        do {
+
+        
+        switch (choixFonctionnalite) {
+            case 0: 
+                Ecran.afficherln("Bienvenue dans l'application de gestion de photos de famille");
+                Ecran.afficherln("Veuillez choisir une fonctionnalité :");
+                Ecran.afficherln("1. Insérer une photo d'une personne");
+                Ecran.afficherln("2. Trouver les photos d'une personne");
+                Ecran.afficherln("3. Reconstituer toutes les photos d'une famille");
+                Ecran.afficherln("Tapez -1 pour quitter l'application");
+                do {
+                    Ecran.afficherln("Veuillez saisir un nombre entre 1 et 3");
+                    choixFonctionnalite = Clavier.saisirInt();
+                }while (choixFonctionnalite < -1 || choixFonctionnalite > 3);
+
+
+
+
+                break;
+            case 1:
+
+                break;
+            case 2:
+                
+                    break;
+            case 3:
+
+                    break;
         }
-        BD.fermerResultat(res);
-        BD.fermerConnexion(connexion);
+        } while (choixFonctionnalite != -1);
     }
 }
