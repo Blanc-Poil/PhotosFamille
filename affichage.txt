@@ -44,4 +44,10 @@ Pour arrêter d'indiquer des personnes, tapez 0.
 
 Votre choix : 
 
+
+-- suite
+
+
+La photo à bien été ajoutée !
+
 /*##### Trouver une photo #####*/
