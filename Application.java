@@ -1,16 +1,20 @@
 import Struct.*;
 public class Application
 {
+    public static final String YELLOW = "\u001B[33m";
+    public static final String RESET = "\u001B[0m";
+    public static final String BG_YELLOW="\u001B[43m";
+    public static final String BG_GREEN="\u001B[42m";
 
     static int menuPrincipale(int choixFonctionnalite){
-        Ecran.afficherln("Bienvenue dans l'application de gestion de photos de famille");
-        Ecran.afficherln("Veuillez choisir une fonctionnalité :");
-        Ecran.afficherln("1. Insérer une photo d'une personne");
-        Ecran.afficherln("2. Trouver les photos d'une personne");
-        Ecran.afficherln("3. Reconstituer toutes les photos d'une famille");
-        Ecran.afficherln("Tapez -1 pour quitter l'application");
+        Ecran.afficherln(YELLOW+"Bienvenue dans l'application de gestion de photos de famille"+RESET);
+        Ecran.afficherln(YELLOW+"Veuillez choisir une fonctionnalité :"+RESET);
+        Ecran.afficherln(YELLOW+"1. Insérer une photo d'une personne"+RESET);
+        Ecran.afficherln(YELLOW+"2. Trouver les photos d'une personne"+RESET);
+        Ecran.afficherln(YELLOW+"3. Reconstituer toutes les photos d'une famille"+RESET);
+        Ecran.afficherln(YELLOW+"Tapez -1 pour quitter l'application"+RESET);
         do {
-            Ecran.afficherln("Veuillez saisir un nombre entre 1 et 3");
+            Ecran.afficherln(YELLOW+"Veuillez saisir un nombre entre 1 et 3");
             choixFonctionnalite = Clavier.saisirInt();
         }while (choixFonctionnalite < -1 || choixFonctionnalite > 3);
         return choixFonctionnalite;
@@ -18,9 +22,9 @@ public class Application
 
     static void affihageAlbum(Album [] album){
         Ecran.afficherln("Voici la liste des albums :");
-        Ecran.afficherln("Id Album | Nom Album");
+        Ecran.afficherln(BG_GREEN+"Id Album"+RESET+" | " +BG_YELLOW+" Nom Album"+RESET);
         for (int i = 0; i < album.length; i++) {
-            Ecran.afficherln(album[i].IDAlbum + " | " + album[i].NomAlbum);
+            Ecran.afficherln(BG_GREEN+album[i].IDAlbum + RESET+ " | "+BG_YELLOW + album[i].NomAlbum+RESET);
         }
     }
 
@@ -58,7 +62,7 @@ public class Application
 
     static int fonctionnalite1(int choixFonctionnalite, DBmanager bdd){
         Ecran.afficherln("/*##### Insertion de photo #####*/");
-        affihageAlbum(null); // mettre le tableau d'album
+        affihageAlbum(bdd.getAlbums()); // mettre le tableau d'album
         Ecran.afficherln("Veuillez saisir l'id de l'album dans laquelle vous voulez insérer la photo(Saisir 0 pour revenir au menu principale)");
         int idAlbum = Clavier.saisirInt();
         if(idAlbum == 0){
@@ -67,7 +71,7 @@ public class Application
         }
         Ecran.afficherln("Veuillez saisir le numéro de la page dans laquelle vous voulez insérer la photo");
         int page = Clavier.saisirInt();
-        affichageEvenement(null); // mettre le tableau d'évènement
+        affichageEvenement(bdd.getEvenements()); // mettre le tableau d'évènement
         Ecran.afficherln("Veuillez saisir l'id de l'évènement dans laquelle vous voulez insérer la photo(Saisir 0 pour revenir au menu principale)");
         int idEvenement = Clavier.saisirInt();
         if (idEvenement == 0){
@@ -78,15 +82,22 @@ public class Application
         if(IdPhoto != 1)
         {
             Ecran.afficherln("La photo a bien été insérée");
+            int idIndividu;
+            do{        
             Ecran.afficherln("Vous allez maintenant pouvoir indiquer qui se trouvait sur la photo en précisant leurs numéros dans la liste. Pour arrêter d'indiquer des personnes, tapez 0.");
-            affichageSimpleInd(null); // mettre le tableau d'individu
-            int idIndividu = Clavier.saisirInt();
-            if (idIndividu == 0){
-                choixFonctionnalite = 0;
-                return choixFonctionnalite;
+            affichageSimpleInd(bdd.getSimpleInds()); // mettre le tableau d'individu
+            idIndividu = Clavier.saisirInt();
+            if (idIndividu !=0){
+                if (bdd.addApparition(IdPhoto, idIndividu)){
+                    Ecran.afficherln("L'individu a bien été ajouté");
+                }
+                else{
+                    Ecran.afficherln("L'individu n'a pas été ajouté");
+                }
             }
-            //bdd.addIndividu(idIndividu, IdPhoto);
-    }
+           }while (idIndividu != 0);
+           choixFonctionnalite = 0;
+        }
         else
         {
             Ecran.afficherln("La photo n'a pas été insérée");
@@ -175,5 +186,6 @@ public class Application
                 choixFonctionnalite = fonctionnalite3(choixFonctionnalite, bdd);
                 break;
         }
+        } while (choixFonctionnalite != -1);
     }
 }
