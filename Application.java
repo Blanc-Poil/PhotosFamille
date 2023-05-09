@@ -25,7 +25,6 @@ public class Application {
 
                 break;
             case 1:
-                do{
                     Ecran.afficherln("Insérer une photo :");
                     Ecran.afficherln("Veuillez saisir l'id de l'album dans laquelle vous voulez insérer la photo");
                     int idAlbum = Clavier.saisirInt();
@@ -34,10 +33,17 @@ public class Application {
                     Ecran.afficherln("Veuillez saisir l'id de l'évènement dans laquelle vous voulez insérer la photo");
                     int idEvenement = Clavier.saisirInt();
                     
-
-                } while (bdd.addPhoto(idAlbum, page, idEvenement)==false;)
-
-
+                    if(bdd.addPhoto(idAlbum, page, idEvenement))
+                    {
+                        Ecran.afficherln("La photo a bien été insérée");
+                    }
+                    else
+                    {
+                        Ecran.afficherln("La photo n'a pas été insérée");
+                        Ecran.afficherln("Veuillez vérifier que l'album, la page et l'évènement existent bien");
+                        Ecran.afficherln("Si vous souhaitez réesayer taper 1, sinon taper 0");
+                        choixFonctionnalite= Clavier.saisirInt();
+                    }
                 break;
             case 2:
                 
