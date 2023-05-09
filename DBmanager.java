@@ -38,4 +38,34 @@ public class DBmanager
         }
         return albums;
     }
+
+    public Evenement[] getEvenements()
+    {
+        int query;
+        int nbrEvent;
+        //count nbr of events registered
+        query = BD.executerSelect(this.database, "SELECT COUNT(*) AS nbr FROM EVENEMENT");
+        BD.suivant(query);
+        nbrEvent = BD.attributInt(query, "nbr");
+        //completed the events array
+        Evenement[] events = new Evenement[nbrEvent];
+        query = BD.executerSelect(this.database, "SELECT * FROM EVENEMENT");
+        int i = 0;
+        while (BD.suivant(query)) {
+            events[i] = new Evenement();
+            events[i].IDEvenement = BD.attributInt(query, "IDEvenement");
+            events[i].LibelleEvenement = BD.attributString(query, "LibelleEvenement");
+            events[i].DateEvenement = dateString(BD.attributLong(query, "DateEvenement"));
+            i++;
+        }
+        return events;
+    }
+
+    public static String dateString(long timestamp)
+    {
+        int day = BD.jour(timestamp);
+        int month = BD.mois(timestamp);
+        int year = BD.annee(timestamp);
+        return "" + day + '/' + month + '/' + year;
+    }
 }
