@@ -7,12 +7,12 @@ public class Application
     public static final String BG_GREEN="\u001B[42m";
 
     static int menuPrincipale(int choixFonctionnalite){
-        Ecran.afficherln(YELLOW+"Bienvenue dans l'application de gestion de photos de famille"+RESET);
-        Ecran.afficherln(YELLOW+"Veuillez choisir une fonctionnalité :"+RESET);
-        Ecran.afficherln(YELLOW+"1. Insérer une photo d'une personne"+RESET);
-        Ecran.afficherln(YELLOW+"2. Trouver les photos d'une personne"+RESET);
-        Ecran.afficherln(YELLOW+"3. Reconstituer toutes les photos d'une famille"+RESET);
-        Ecran.afficherln(YELLOW+"Tapez -1 pour quitter l'application"+RESET);
+        Ecran.afficherln("Bienvenue dans l'application de gestion de photos de famille");
+        Ecran.afficherln("Veuillez choisir une fonctionnalité :");
+        Ecran.afficherln("1. Insérer une photo d'une personne");
+        Ecran.afficherln("2. Trouver les photos d'une personne");
+        Ecran.afficherln("3. Reconstituer toutes les photos d'une famille");
+        Ecran.afficherln("Tapez -1 pour quitter l'application");
         do {
             Ecran.afficherln(YELLOW+"Veuillez saisir un nombre entre 1 et 3");
             choixFonctionnalite = Clavier.saisirInt();
@@ -22,9 +22,9 @@ public class Application
 
     static void affihageAlbum(Album [] album){
         Ecran.afficherln("Voici la liste des albums :");
-        Ecran.afficherln(BG_GREEN+"Id Album"+RESET+" | " +BG_YELLOW+" Nom Album"+RESET);
+        Ecran.afficherln("Id Album | Nom Album");
         for (int i = 0; i < album.length; i++) {
-            Ecran.afficherln(BG_GREEN+album[i].IDAlbum + RESET+ " | "+BG_YELLOW + album[i].NomAlbum+RESET);
+            Ecran.afficherln(album[i].IDAlbum + " | " + album[i].NomAlbum);
         }
     }
 
