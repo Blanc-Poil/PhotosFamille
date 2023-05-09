@@ -58,7 +58,7 @@ public class Application
 
     static int fonctionnalite1(int choixFonctionnalite, DBmanager bdd){
         Ecran.afficherln("/*##### Insertion de photo #####*/");
-        affihageAlbum(null); // mettre le tableau d'album
+        affihageAlbum(bdd.getAlbums()); // mettre le tableau d'album
         Ecran.afficherln("Veuillez saisir l'id de l'album dans laquelle vous voulez insérer la photo(Saisir 0 pour revenir au menu principale)");
         int idAlbum = Clavier.saisirInt();
         if(idAlbum == 0){
@@ -67,7 +67,7 @@ public class Application
         }
         Ecran.afficherln("Veuillez saisir le numéro de la page dans laquelle vous voulez insérer la photo");
         int page = Clavier.saisirInt();
-        affichageEvenement(null); // mettre le tableau d'évènement
+        affichageEvenement(bdd.getEvenements()); // mettre le tableau d'évènement
         Ecran.afficherln("Veuillez saisir l'id de l'évènement dans laquelle vous voulez insérer la photo(Saisir 0 pour revenir au menu principale)");
         int idEvenement = Clavier.saisirInt();
         if (idEvenement == 0){
@@ -78,15 +78,20 @@ public class Application
         if(IdPhoto != 1)
         {
             Ecran.afficherln("La photo a bien été insérée");
+            int idIndividu;
+            do{        
             Ecran.afficherln("Vous allez maintenant pouvoir indiquer qui se trouvait sur la photo en précisant leurs numéros dans la liste. Pour arrêter d'indiquer des personnes, tapez 0.");
-            affichageSimpleInd(null); // mettre le tableau d'individu
-            int idIndividu = Clavier.saisirInt();
-            if (idIndividu == 0){
-                choixFonctionnalite = 0;
-                return choixFonctionnalite;
+            affichageSimpleInd(bdd.getSimpleInds()); // mettre le tableau d'individu
+            idIndividu = Clavier.saisirInt();
+            if (bdd.addApparition(IdPhoto, idIndividu)){
+                Ecran.afficherln("L'individu a bien été ajouté");
             }
-            //bdd.addIndividu(idIndividu, IdPhoto);
-    }
+            else{
+                Ecran.afficherln("L'individu n'a pas été ajouté");
+            }
+           }while (idIndividu != 0);
+           choixFonctionnalite = 0;
+        }
         else
         {
             Ecran.afficherln("La photo n'a pas été insérée");
@@ -175,5 +180,6 @@ public class Application
                 choixFonctionnalite = fonctionnalite3(choixFonctionnalite, bdd);
                 break;
         }
+        } while (choixFonctionnalite != -1);
     }
 }
