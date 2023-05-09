@@ -175,6 +175,5 @@ public class Application
                 choixFonctionnalite = fonctionnalite3(choixFonctionnalite, bdd);
                 break;
         }
-        } while (choixFonctionnalite != -1);
     }
 }

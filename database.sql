@@ -22,7 +22,7 @@ CREATE TABLE INDIVIDU (
 CREATE TABLE EVENEMENT (
     IDEvenement INTEGER AUTO_INCREMENT NOT NULL,
     LibelleEvenement VARCHAR(64) NOT NULL,
-    DateEvenement DATE NOT NULL,
+    DateEvenement BIGINT NOT NULL,
     CONSTRAINT pk_evenement PRIMARY KEY (IDEvenement)
 ) ENGINE=InnoDB;
 
