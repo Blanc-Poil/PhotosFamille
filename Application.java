@@ -1,10 +1,8 @@
-public class Application {
+public class Application
+{
     public static void main(String[] args)
     {
         DBmanager bdd = new DBmanager(Access.adresse, Access.bd, Access.login, Access.password);
-        bdd.addPhoto(1, 25, 1);
-
-        int connexion = BD.ouvrirConnexion(Access.adresse, Access.bd, Access.login,Access.password);
         Ecran.afficherln("Connexion : " + connexion);
         int choixFonctionnalite = 0;
         do {

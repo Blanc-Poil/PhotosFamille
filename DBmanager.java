@@ -4,7 +4,6 @@ public class DBmanager
 
     public DBmanager(String host, String dbname, String login, String password)
     {
-        Ecran.afficher(host);
         this.database = BD.ouvrirConnexion(host, dbname, login, password);
     }
 

@@ -46,18 +46,18 @@ CREATE TABLE APPARAIT (
         ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
-INSERT INTO `album` (`IDAlbum`, `NomAlbum`) VALUES
+INSERT INTO ALBUM (IDAlbum, NomAlbum) VALUES
 (1, 'Anniv 18 ans Tristan'),
 (2, 'Mariage Pop'),
 (3, 'Gazette tata D');
 
-INSERT INTO `evenement` (`IDEvenement`, `LibelleEvenement`, `DateEvenement`) VALUES
+INSERT INTO EVENEMENT (IDEvenement, LibelleEvenement, DateEvenement) VALUES
 (1, 'Anniversaires Tristan', '2022-02-21'),
 (2, 'Mariages', '2006-05-10'),
 (3, 'Goutte chez Dédé', '2023-02-10'),
 (4, 'Visite distillerie', '2019-07-18');
 
-INSERT INTO `individu` (`IDInd`, `IDPere`, `IDMere`, `NomInd`, `PrenomInd`) VALUES
+INSERT INTO INDIVIDU (IDInd, IDPere, IDMere, NomInd, PrenomInd) VALUES
 (1, NULL, NULL, 'AMIOTTE-SUCHET', 'Gérard'),
 (2, NULL, NULL, 'AMIOTTE-SUCHET', 'Jeanine'),
 (3, 1, 2, 'AMIOTTE-SUCHET', 'Laurent'),
