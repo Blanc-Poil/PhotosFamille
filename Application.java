@@ -17,7 +17,7 @@ public class Application
 
     static void affihageAlbum(Album [] album){
         Ecran.afficherln("Voici la liste des albums :");
-        Ecran.afficherln("IdAlbum | NomAlbum");
+        Ecran.afficherln("Id Album | Nom Album");
         for (int i = 0; i < album.length; i++) {
             Ecran.afficherln(album[i].IdAlbum + " | " + album[i].NomAlbum);
         }
@@ -25,9 +25,17 @@ public class Application
 
     static void affichageEvenement(Evenement [] evenement){
         Ecran.afficherln("Voici la liste des évènements :");
-        Ecran.afficherln(" IDEvenement | LibelleEvenement | DateEvenement");
+        Ecran.afficherln(" ID Evenement | Libelle Evenement | Date Evenement");
         for (int i = 0; i < evenement.length; i++) {
             Ecran.afficherln(evenement[i].IdEvenement + " | " + evenement[i].LibelleEvenement + " | " + evenement[i].DateEvenement);
+        }
+    }
+
+    static void affichageIndividu(Individu[] individu){
+        Ecran.afficherln("Voici la liste des individus :");
+        Ecran.afficherln("Id Individu | Id Pere | Id Mere | Nom Individu | Penom Individu");
+        for (int i = 0; i < individu.length; i++) {
+            Ecran.afficherln(individu[i].IdInd + " | " + individu[i].IdPere + " | " + individu[i].IdMere + " | " + individu[i].nomInd + " | " + individu[i].PrenomInd);
         }
     }
 
@@ -65,7 +73,7 @@ public class Application
         //requette pour renvoyé tous les individus qui ont le même nom et prénom
         if (true) // si il y a des individus
         {
-            //affichage des individus
+            affichageIndividu(null); // mettre le tableau d'individu
             Ecran.afficherln("Veuillez saisir l'id de la personne dont vous voulez trouver les photos");
             int idPersonne = Clavier.saisirInt();
             //requette pour renvoyé les albums et les pages de toutes les photos de la personne
@@ -77,7 +85,33 @@ public class Application
             Ecran.afficherln("Si vous souhaitez réesayer taper 2, sinon taper 0");
             choixFonctionnalite= Clavier.saisirInt();
         }
+        return choixFonctionnalite;
     }
+
+    static int fonctionnalite3(int choixFonctionnalite){
+        Ecran.afficherln("/*##### Reconstituer toutes les photos d'une famille #####*/");
+        Ecran.afficherln("Veuillez saisir le nom de la personne dont vous voulez reconstituer les photos de sa famille");
+        String nomPersonne = Clavier.saisirString();
+        Ecran.afficherln("Veuillez saisir le prénom de la personne dont vous voulez reconstituer les photos de sa famille");
+        String prenomPersonne = Clavier.saisirString();
+        //requette pour renvoyé tous les individus qui ont le même nom et prénom
+        if (true) // si il y a des individus
+        {
+            affichageIndividu(null); // mettre le tableau d'individu
+            Ecran.afficherln("Veuillez saisir l'id de la personne dont vous voulez reconstituer les photos de sa famille");
+            int idPersonne = Clavier.saisirInt();
+            //requette pour renvoyé les photos de la famille
+            //affichage des photos
+        }
+        else
+        {
+            Ecran.afficherln("Il n'y a pas de personne avec ce nom et ce prénom");
+            Ecran.afficherln("Si vous souhaitez réesayer taper 3, sinon taper 0");
+            choixFonctionnalite= Clavier.saisirInt();
+        }
+        return choixFonctionnalite;
+    }
+
     public static void main(String[] args)
     {
         DBmanager bdd = new DBmanager(Access.adresse, Access.bd, Access.login, Access.password);
@@ -87,17 +121,17 @@ public class Application
         
         switch (choixFonctionnalite) {
             case 0: 
-                    choixFonctionnalite = menuPrincipale(choixFonctionnalite);
+                choixFonctionnalite = menuPrincipale(choixFonctionnalite);
                 break;
             case 1:
-                    choixFonctionnalite = fonctionnalite1(choixFonctionnalite, bdd);
+                choixFonctionnalite = fonctionnalite1(choixFonctionnalite, bdd);
                 break;
             case 2:
-                
-                    break;
+                choixFonctionnalite = fonctionnalite2(choixFonctionnalite);
+                break;
             case 3:
-
-                    break;
+                choixFonctionnalite = fonctionnalite3(choixFonctionnalite);
+                break;
         }
         } while (choixFonctionnalite != -1);
     }
