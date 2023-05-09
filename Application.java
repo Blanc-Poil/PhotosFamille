@@ -74,9 +74,8 @@ public class Application
             choixFonctionnalite = 0;
             return choixFonctionnalite;
         }
-        Ecran.afficherln("Vous allez maintenant pouvoir indiquer qui se trouvait sur la photo en précisant leurs numéros dans la liste. Pour arrêter d'indiquer des personnes, tapez 0.");
-        affichageSimpleInd(null); // mettre le tableau d'individu
-        if(bdd.addPhoto(idAlbum, page, idEvenement))
+        int IdPhoto = bdd.addPhoto(idAlbum, page, idEvenement);
+        if(IdPhoto != 1)
         {
             Ecran.afficherln("La photo a bien été insérée");
             Ecran.afficherln("Vous allez maintenant pouvoir indiquer qui se trouvait sur la photo en précisant leurs numéros dans la liste. Pour arrêter d'indiquer des personnes, tapez 0.");
@@ -86,7 +85,7 @@ public class Application
                 choixFonctionnalite = 0;
                 return choixFonctionnalite;
             }
-            //bdd.addIndividu(idIndividu);
+            //bdd.addIndividu(idIndividu, IdPhoto);
     }
         else
         {
