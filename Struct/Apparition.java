@@ -1,7 +1,7 @@
 package Struct;
 
-public class Photo {
+public class Apparition
+{
     public String NomAlbum;
     public int NumPage;
-    public String LibelleEvenement;
 }
