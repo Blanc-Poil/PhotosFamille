@@ -139,7 +139,7 @@ public class DBmanager
         return inds;
     }
 
-    public Apparition[] getApparitions(int id)
+    public Apparition[] getApparitions(int id) //problème ici
     {
         String sql = """
             SELECT NomAlbum, NumPage

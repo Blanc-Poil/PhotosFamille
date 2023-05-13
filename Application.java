@@ -1,10 +1,11 @@
 import Struct.*;
 public class Application
 {
-    public static final String YELLOW = "\u001B[33m";
-    public static final String RESET = "\u001B[0m";
-    public static final String BG_YELLOW="\u001B[43m";
-    public static final String BG_GREEN="\u001B[42m";
+
+    public static void clearScreen() {  
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();  
+    } 
 
     static int menuPrincipale(int choixFonctionnalite){
         Ecran.afficherln("Bienvenue dans l'application de gestion de photos de famille");
@@ -14,9 +15,10 @@ public class Application
         Ecran.afficherln("3. Reconstituer toutes les photos d'une famille");
         Ecran.afficherln("Tapez -1 pour quitter l'application");
         do {
-            Ecran.afficherln(YELLOW+"Veuillez saisir un nombre entre 1 et 3");
+            Ecran.afficherln("Veuillez saisir un nombre entre 1 et 3");
             choixFonctionnalite = Clavier.saisirInt();
         }while (choixFonctionnalite < -1 || choixFonctionnalite > 3);
+        clearScreen();
         return choixFonctionnalite;
     }
 
@@ -46,21 +48,31 @@ public class Application
 
     static void affichageIndividu(Individu[] individu){
         Ecran.afficherln("Voici la liste des individus :");
-        Ecran.afficherln("Id Individu | Id Pere | Id Mere | Nom Individu | Penom Individu");
+        Ecran.afficherln("Id Individu | Nom Individu | Prénom Individu | Nom Pere | Nom Mere");
         for (int i = 0; i < individu.length; i++) {
-            Ecran.afficherln(individu[i].IDInd + " | " + individu[i].IDPere + " | " + individu[i].IDMere + " | " + individu[i].NomInd + " | " + individu[i].PrenomInd);
+            Ecran.afficherln(individu[i].IDInd + " | " + individu[i].NomInd + " | " + individu[i].PrenomInd + " | " + individu[i].NomPere + " | " + individu[i].NomMere);
         }
     }
 
+
+
+    static void affichageApparition(Apparition[] photo){
+        Ecran.afficherln("Voici les albums et pages contenant les photos où apparait la personne choisie :");
+        Ecran.afficherln("Nom Album | Num Page");
+        for (int i = 0; i < photo.length; i++) {
+            Ecran.afficherln(photo[i].NomAlbum + " | " + photo[i].NumPage);
+        }
+    }
     static void affichagePhotos(Photo[] photo){
         Ecran.afficherln("Voici la liste des photos :");
-        Ecran.afficherln("Id Photo | Id Album | Num Page");
+        Ecran.afficherln("Nom Album | Num Page | Libelle Evenement");
         for (int i = 0; i < photo.length; i++) {
-            Ecran.afficherln(photo[i].IDPhoto + " | " + photo[i].IDAlbum + " | " + photo[i].NumPage);
+            Ecran.afficherln(photo[i].NomAlbum + " | " + photo[i].NumPage + " | " + photo[i].LibelleEvenement);
         }
     }
 
     static int fonctionnalite1(int choixFonctionnalite, DBmanager bdd){
+        clearScreen();
         Ecran.afficherln("/*##### Insertion de photo #####*/");
         affihageAlbum(bdd.getAlbums()); // mettre le tableau d'album
         Ecran.afficherln("Veuillez saisir l'id de l'album dans laquelle vous voulez insérer la photo(Saisir 0 pour revenir au menu principale)");
@@ -69,6 +81,7 @@ public class Application
             choixFonctionnalite = 0;
             return choixFonctionnalite;
         }
+        clearScreen();
         Ecran.afficherln("Veuillez saisir le numéro de la page dans laquelle vous voulez insérer la photo");
         int page = Clavier.saisirInt();
         affichageEvenement(bdd.getEvenements()); // mettre le tableau d'évènement
@@ -81,18 +94,24 @@ public class Application
         int IdPhoto = bdd.addPhoto(idAlbum, page, idEvenement);
         if(IdPhoto != 1)
         {
+            clearScreen();
             Ecran.afficherln("La photo a bien été insérée");
             int idIndividu;
             do{        
             Ecran.afficherln("Vous allez maintenant pouvoir indiquer qui se trouvait sur la photo en précisant leurs numéros dans la liste. Pour arrêter d'indiquer des personnes, tapez 0.");
             affichageSimpleInd(bdd.getSimpleInds()); // mettre le tableau d'individu
             idIndividu = Clavier.saisirInt();
+            
             if (idIndividu !=0){
+                clearScreen();
                 if (bdd.addApparition(IdPhoto, idIndividu)){
                     Ecran.afficherln("L'individu a bien été ajouté");
+
                 }
                 else{
+                    clearScreen();
                     Ecran.afficherln("L'individu n'a pas été ajouté");
+            
                 }
             }
            }while (idIndividu != 0);
@@ -104,7 +123,9 @@ public class Application
             Ecran.afficherln("Veuillez vérifier que l'album, la page et l'évènement existent bien");
             Ecran.afficherln("Si vous souhaitez réesayer taper 1, sinon taper 0");
             choixFonctionnalite= Clavier.saisirInt();
+
         }
+        clearScreen();
         return choixFonctionnalite;
     }
 
@@ -115,18 +136,19 @@ public class Application
         String nomPersonne = Clavier.saisirString();
         Ecran.afficherln("Veuillez saisir le prénom de la personne dont vous voulez trouver les photos");
         String prenomPersonne = Clavier.saisirString();
-        //requette pour renvoyé tous les individus qui ont le même nom et prénom
-        if (true) // si il y a des individus
+        Individu[] resultat =bdd.getIndividuByName(nomPersonne, prenomPersonne);
+        if (resultat.length!=0) // s'il y a des individus
         {
-            affichageIndividu(null); // mettre le tableau d'individu
+            clearScreen();
+            affichageIndividu(resultat); 
             Ecran.afficherln("Veuillez saisir l'id de la personne dont vous voulez trouver les photos(Saisir 0 pour revenir au menu principale)");
             int idPersonne = Clavier.saisirInt();
             if (idPersonne == 0){
                 choixFonctionnalite = 0;
                 return choixFonctionnalite;
             }
-            //requette pour renvoyé les albums et les pages de toutes les photos de la personne
-            affichagePhotos(null); // mettre le tableau de photo
+            affichageApparition(bdd.getApparitions(idPersonne)); //Problème ici
+            choixFonctionnalite = 0;
         }
         else
         {
@@ -134,6 +156,7 @@ public class Application
             Ecran.afficherln("Si vous souhaitez réesayer taper 2, sinon taper 0");
             choixFonctionnalite= Clavier.saisirInt();
         }
+        clearScreen();
         return choixFonctionnalite;
     }
 
@@ -143,18 +166,20 @@ public class Application
         String nomPersonne = Clavier.saisirString();
         Ecran.afficherln("Veuillez saisir le prénom de la personne dont vous voulez reconstituer les photos de sa famille");
         String prenomPersonne = Clavier.saisirString();
-        //requette pour renvoyé tous les individus qui ont le même nom et prénom
-        if (true) // si il y a des individus
-        {
-            affichageIndividu(null); // mettre le tableau d'individu
+        Individu[] resultat =bdd.getIndividuByName(nomPersonne, prenomPersonne);
+        if (resultat.length!=0) // s'il y a des individus
+        {   
+            clearScreen();
+            affichageIndividu(resultat); 
             Ecran.afficherln("Veuillez saisir l'id de la personne dont vous voulez reconstituer les photos de sa famille(Saisir 0 pour revenir au menu principale)");
             int idPersonne = Clavier.saisirInt();
+            Ecran.afficherln("La personne à bien été ajouter");
             if (idPersonne == 0){
                 choixFonctionnalite = 0;
                 return choixFonctionnalite;
             }
-            //requette pour renvoyé les photos de la famille
-            //affichage des photos
+            affichagePhotos(bdd.getFamilyPictures(idPersonne));
+            choixFonctionnalite = 0;
         }
         else
         {
