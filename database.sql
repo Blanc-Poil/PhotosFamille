@@ -69,3 +69,14 @@ INSERT INTO INDIVIDU (IDInd, IDPere, IDMere, NomInd, PrenomInd) VALUES
 (8, NULL, NULL, 'DESTOMBE', 'Christelle'),
 (9, 3, 5, 'AMIOTTE-SUCHET', 'Laël'),
 (10, 4, 8, 'AMIOTTE-SUCHET', 'Jeanne');
+
+INSERT INTO PHOTO (IDPhoto, IDAlbum, NumPage, IDEvenement) VALUES
+(1, 1, 25, 1),
+(2, 3, 39, 3),
+(3, 3, 70, 4);
+
+INSERT INTO APPARAIT (IDPhoto, IDInd) VALUES
+(3, 2),
+(1, 7),
+(2, 7),
+(2, 10);

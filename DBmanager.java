@@ -143,7 +143,7 @@ public class DBmanager
     {
         String sql = """
             SELECT NomAlbum, NumPage
-            FROM INDIVIDU AS
+            FROM INDIVIDU
             NATURAL JOIN APPARAIT
             NATURAL JOIN PHOTO
             NATURAL JOIN ALBUM
@@ -159,6 +159,7 @@ public class DBmanager
         Apparition[] apps = new Apparition[nbrApp];
         for (int i=0 ; i < nbrApp ; i++) {
             BD.suivant(query);
+            apps[i] = new Apparition();
             apps[i].NomAlbum = BD.attributString(query, "NomAlbum");
             apps[i].NumPage = BD.attributInt(query, "NumPage");
         }
