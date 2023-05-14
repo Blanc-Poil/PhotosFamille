@@ -24,33 +24,33 @@ public class Application
 
     static void affihageAlbum(Album [] album){
         Ecran.afficherln("Voici la liste des albums :");
-        Ecran.afficherln("Id Album | Nom Album");
+        Ecran.afficherln("      Id Album        |      Nom Album        ");
         for (int i = 0; i < album.length; i++) {
-            Ecran.afficherln(album[i].IDAlbum + " | " + album[i].NomAlbum);
+            Ecran.afficherln("      "+album[i].IDAlbum + "      |       " + album[i].NomAlbum+"        ");
         }
     }
 
     static void affichageEvenement(Evenement [] evenement){
         Ecran.afficherln("Voici la liste des évènements :");
-        Ecran.afficherln(" ID Evenement | Libelle Evenement | Date Evenement");
+        Ecran.afficherln("      ID Evenement        |       Libelle Evenement       |       Date Evenement      ");
         for (int i = 0; i < evenement.length; i++) {
-            Ecran.afficherln(evenement[i].IDEvenement + " | " + evenement[i].LibelleEvenement + " | " + evenement[i].DateEvenement);
+            Ecran.afficherln("      "+evenement[i].IDEvenement + "      |       " + evenement[i].LibelleEvenement + "       |       " + evenement[i].DateEvenement+"        ");
         }
     }
 
     static void affichageSimpleInd(SimpleInd[] simpleInd){
         Ecran.afficherln("Voici la liste des individus :");
-        Ecran.afficherln("Id Individu | Nom Individu | Penom Individu");
+        Ecran.afficherln("      Id Individu     |       Nom Individu        |       Penom Individu      ");
         for (int i = 0; i < simpleInd.length; i++) {
-            Ecran.afficherln(simpleInd[i].IDInd + " | " + simpleInd[i].NomInd + " | " + simpleInd[i].PrenomInd);
+            Ecran.afficherln("      "+simpleInd[i].IDInd + "     |       " + simpleInd[i].NomInd + "     |       " + simpleInd[i].PrenomInd+"        ");
         }
     }
 
     static void affichageIndividu(Individu[] individu){
         Ecran.afficherln("Voici la liste des individus :");
-        Ecran.afficherln("Id Individu | Nom Individu | Prénom Individu | Nom Pere | Nom Mere");
+        Ecran.afficherln("      Id Individu | Nom Individu | Prénom Individu | Nom Pere | Nom Mere      ");
         for (int i = 0; i < individu.length; i++) {
-            Ecran.afficherln(individu[i].IDInd + " | " + individu[i].NomInd + " | " + individu[i].PrenomInd + " | " + individu[i].NomPere + " | " + individu[i].NomMere);
+            Ecran.afficherln("      "+individu[i].IDInd + "     |       " + individu[i].NomInd + "      |       " + individu[i].PrenomInd + "       |     " + individu[i].NomPere + "       |       " + individu[i].NomMere+"       ");
         }
     }
 
@@ -58,16 +58,16 @@ public class Application
 
     static void affichageApparition(Apparition[] photo){
         Ecran.afficherln("Voici les albums et pages contenant les photos où apparait la personne choisie :");
-        Ecran.afficherln("Nom Album | Num Page");
+        Ecran.afficherln("      Nom Album       |       Num Page        ");
         for (int i = 0; i < photo.length; i++) {
-            Ecran.afficherln(photo[i].NomAlbum + " | " + photo[i].NumPage);
+            Ecran.afficherln("      "+photo[i].NomAlbum + "     |       " + photo[i].NumPage+"      ");
         }
     }
     static void affichagePhotos(Photo[] photo){
         Ecran.afficherln("Voici la liste des photos :");
-        Ecran.afficherln("Nom Album | Num Page | Libelle Evenement");
+        Ecran.afficherln("      Nom Album       |       Num Page        |       Libelle Evenement       ");
         for (int i = 0; i < photo.length; i++) {
-            Ecran.afficherln(photo[i].NomAlbum + " | " + photo[i].NumPage + " | " + photo[i].LibelleEvenement);
+            Ecran.afficherln("      "+photo[i].NomAlbum + "      |       " + photo[i].NumPage + "       |       " + photo[i].LibelleEvenement+"     ");
         }
     }
 
