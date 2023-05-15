@@ -1,4 +1,5 @@
 import Struct.*;
+
 public class Application
 {
 
@@ -22,72 +23,25 @@ public class Application
         return choixFonctionnalite;
     }
 
-    static void affihageAlbum(Album [] album){
-        Ecran.afficherln("Voici la liste des albums :");
-        Ecran.afficherln("      Id Album        |      Nom Album        ");
-        for (int i = 0; i < album.length; i++) {
-            Ecran.afficherln("      "+album[i].IDAlbum + "      |       " + album[i].NomAlbum+"        ");
-        }
-    }
-
-    static void affichageEvenement(Evenement [] evenement){
-        Ecran.afficherln("Voici la liste des évènements :");
-        Ecran.afficherln("      ID Evenement        |       Libelle Evenement       |       Date Evenement      ");
-        for (int i = 0; i < evenement.length; i++) {
-            Ecran.afficherln("      "+evenement[i].IDEvenement + "      |       " + evenement[i].LibelleEvenement + "       |       " + evenement[i].DateEvenement+"        ");
-        }
-    }
-
-    static void affichageSimpleInd(SimpleInd[] simpleInd){
-        Ecran.afficherln("Voici la liste des individus :");
-        Ecran.afficherln("      Id Individu     |       Nom Individu        |       Penom Individu      ");
-        for (int i = 0; i < simpleInd.length; i++) {
-            Ecran.afficherln("      "+simpleInd[i].IDInd + "     |       " + simpleInd[i].NomInd + "     |       " + simpleInd[i].PrenomInd+"        ");
-        }
-    }
-
-    static void affichageIndividu(Individu[] individu){
-        Ecran.afficherln("Voici la liste des individus :");
-        Ecran.afficherln("      Id Individu | Nom Individu | Prénom Individu | Nom Pere | Nom Mere      ");
-        for (int i = 0; i < individu.length; i++) {
-            Ecran.afficherln("      "+individu[i].IDInd + "     |       " + individu[i].NomInd + "      |       " + individu[i].PrenomInd + "       |     " + individu[i].NomPere + "       |       " + individu[i].NomMere+"       ");
-        }
-    }
-
-
-
-    static void affichageApparition(Apparition[] photo){
-        Ecran.afficherln("Voici les albums et pages contenant les photos où apparait la personne choisie :");
-        Ecran.afficherln("      Nom Album       |       Num Page        ");
-        for (int i = 0; i < photo.length; i++) {
-            Ecran.afficherln("      "+photo[i].NomAlbum + "     |       " + photo[i].NumPage+"      ");
-        }
-    }
-    static void affichagePhotos(Photo[] photo){
-        Ecran.afficherln("Voici la liste des photos :");
-        Ecran.afficherln("      Nom Album       |       Num Page        |       Libelle Evenement       ");
-        for (int i = 0; i < photo.length; i++) {
-            Ecran.afficherln("      "+photo[i].NomAlbum + "      |       " + photo[i].NumPage + "       |       " + photo[i].LibelleEvenement+"     ");
-        }
-    }
-
     static int fonctionnalite1(int choixFonctionnalite, DBmanager bdd){
         clearScreen();
         Ecran.afficherln("/*##### Insertion de photo #####*/");
-        affihageAlbum(bdd.getAlbums()); // mettre le tableau d'album
+        Album.print(bdd.getAlbums()); // mettre le tableau d'album
         Ecran.afficherln("Veuillez saisir l'id de l'album dans laquelle vous voulez insérer la photo(Saisir 0 pour revenir au menu principale)");
         int idAlbum = Clavier.saisirInt();
         if(idAlbum == 0){
+            clearScreen();
             choixFonctionnalite = 0;
             return choixFonctionnalite;
         }
         clearScreen();
         Ecran.afficherln("Veuillez saisir le numéro de la page dans laquelle vous voulez insérer la photo");
         int page = Clavier.saisirInt();
-        affichageEvenement(bdd.getEvenements()); // mettre le tableau d'évènement
+        Evenement.print(bdd.getEvenements());
         Ecran.afficherln("Veuillez saisir l'id de l'évènement dans laquelle vous voulez insérer la photo(Saisir 0 pour revenir au menu principale)");
         int idEvenement = Clavier.saisirInt();
         if (idEvenement == 0){
+            clearScreen();
             choixFonctionnalite = 0;
             return choixFonctionnalite;
         }
@@ -99,7 +53,7 @@ public class Application
             int idIndividu;
             do{        
             Ecran.afficherln("Vous allez maintenant pouvoir indiquer qui se trouvait sur la photo en précisant leurs numéros dans la liste. Pour arrêter d'indiquer des personnes, tapez 0.");
-            affichageSimpleInd(bdd.getSimpleInds()); // mettre le tableau d'individu
+            SimpleInd.print(bdd.getSimpleInds()); // mettre le tableau d'individu
             idIndividu = Clavier.saisirInt();
             
             if (idIndividu !=0){
@@ -140,14 +94,15 @@ public class Application
         if (resultat.length!=0) // s'il y a des individus
         {
             clearScreen();
-            affichageIndividu(resultat); 
+            Individu.print(resultat); 
             Ecran.afficherln("Veuillez saisir l'id de la personne dont vous voulez trouver les photos(Saisir 0 pour revenir au menu principale)");
             int idPersonne = Clavier.saisirInt();
+            clearScreen();
             if (idPersonne == 0){
                 choixFonctionnalite = 0;
                 return choixFonctionnalite;
             }
-            affichageApparition(bdd.getApparitions(idPersonne)); //Problème ici
+            Apparition.print(bdd.getApparitions(idPersonne));
             choixFonctionnalite = 0;
         }
         else
@@ -156,6 +111,8 @@ public class Application
             Ecran.afficherln("Si vous souhaitez réesayer taper 2, sinon taper 0");
             choixFonctionnalite= Clavier.saisirInt();
         }
+        Ecran.afficher("Pressez <Entrer> pour quitter");
+        Clavier.saisirString();
         clearScreen();
         return choixFonctionnalite;
     }
@@ -166,19 +123,20 @@ public class Application
         String nomPersonne = Clavier.saisirString();
         Ecran.afficherln("Veuillez saisir le prénom de la personne dont vous voulez reconstituer les photos de sa famille");
         String prenomPersonne = Clavier.saisirString();
-        Individu[] resultat =bdd.getIndividuByName(nomPersonne, prenomPersonne);
+        Individu[] resultat = bdd.getIndividuByName(nomPersonne, prenomPersonne);
         if (resultat.length!=0) // s'il y a des individus
         {   
             clearScreen();
-            affichageIndividu(resultat); 
+            Individu.print(resultat); 
             Ecran.afficherln("Veuillez saisir l'id de la personne dont vous voulez reconstituer les photos de sa famille(Saisir 0 pour revenir au menu principale)");
             int idPersonne = Clavier.saisirInt();
-            Ecran.afficherln("La personne à bien été ajouter");
             if (idPersonne == 0){
+                clearScreen();
                 choixFonctionnalite = 0;
                 return choixFonctionnalite;
             }
-            affichagePhotos(bdd.getFamilyPictures(idPersonne));
+            clearScreen();
+            Photo.print(bdd.getFamilyPictures(idPersonne));
             choixFonctionnalite = 0;
         }
         else
@@ -187,12 +145,16 @@ public class Application
             Ecran.afficherln("Si vous souhaitez réesayer taper 3, sinon taper 0");
             choixFonctionnalite= Clavier.saisirInt();
         }
+        Ecran.afficher("Pressez <Entrer> pour quitter");
+        Clavier.saisirString();
+        clearScreen();
         return choixFonctionnalite;
     }
 
     public static void main(String[] args)
     {
         DBmanager bdd = new DBmanager(Access.adresse, Access.bd, Access.login, Access.password);
+        clearScreen();
         int choixFonctionnalite = 0;
         do {
 
@@ -212,5 +174,7 @@ public class Application
                 break;
         }
         } while (choixFonctionnalite != -1);
+
+        clearScreen();
     }
 }
