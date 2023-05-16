@@ -148,6 +148,7 @@ public class Application
         Ecran.afficher("Pressez <Entrer> pour quitter");
         Clavier.saisirString();
         clearScreen();
+        
         return choixFonctionnalite;
     }
 
