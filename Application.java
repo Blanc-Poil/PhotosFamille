@@ -46,7 +46,7 @@ public class Application
             return choixFonctionnalite;
         }
         int IdPhoto = bdd.addPhoto(idAlbum, page, idEvenement);
-        if(IdPhoto != 1)
+        if(IdPhoto != -1)
         {
             clearScreen();
             Ecran.afficherln("La photo a bien été insérée");
@@ -73,6 +73,7 @@ public class Application
         }
         else
         {
+            clearScreen();
             Ecran.afficherln("La photo n'a pas été insérée");
             Ecran.afficherln("Veuillez vérifier que l'album, la page et l'évènement existent bien");
             Ecran.afficherln("Si vous souhaitez réesayer taper 1, sinon taper 0");
